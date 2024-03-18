@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 
-
 # Copyright 2021 Google Inc. All Rights Reserved.
 
 #
@@ -29,7 +28,6 @@
 # limitations under the License.
 
 
-
 """Google Analytics Data API sample application demonstrating the creation
 
 of a basic report.
@@ -44,6 +42,7 @@ for more information.
 
 # [START analyticsdata_run_report]
 
+from google.analytics.admin import AnalyticsAdminServiceClient
 from google.analytics.data_v1beta import BetaAnalyticsDataClient
 
 from google.analytics.data_v1beta.types import (
@@ -65,9 +64,7 @@ import os
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'uplifted-env-417010-e25cb9245c6a.json'
 
 
-
 def run_sample():
-
     """Runs the sample."""
 
     # TODO(developer): Replace this variable with your Google Analytics 4
@@ -79,16 +76,10 @@ def run_sample():
     run_report(property_id)
 
 
-
-
-
 def run_report(property_id="431492598"):
-
     """Runs a report of active users grouped by country."""
 
     client = BetaAnalyticsDataClient()
-
-
 
     request = RunReportRequest(
 
@@ -98,7 +89,8 @@ def run_report(property_id="431492598"):
 
         metrics=[Metric(name="totalUsers")],
 
-        date_ranges=[DateRange(start_date="2020-09-01", end_date="2024-09-15")],
+        date_ranges=[DateRange(start_date="2020-09-01",
+                               end_date="2024-09-15")],
 
     )
 
@@ -106,7 +98,6 @@ def run_report(property_id="431492598"):
 
     print_run_report_response(response)
 
-from google.analytics.admin import AnalyticsAdminServiceClient
 
 def get_all_properties(transport: str = None) -> None:
     """
@@ -133,11 +124,7 @@ def get_all_properties(transport: str = None) -> None:
             print()
 
 
-
-
-
 def print_run_report_response(response):
-
     """Prints results of a runReport call."""
 
     # [START analyticsdata_print_run_report_response_header]
@@ -156,8 +143,6 @@ def print_run_report_response(response):
 
     # [END analyticsdata_print_run_report_response_header]
 
-
-
     # [START analyticsdata_print_run_report_response_rows]
 
     print("Report result:")
@@ -172,8 +157,6 @@ def print_run_report_response(response):
 
             print(f"{dimension_name}: {dimension_value.value}")
 
-
-
         for i, metric_value in enumerate(row.metric_values):
 
             metric_name = response.metric_headers[i].name
@@ -183,13 +166,7 @@ def print_run_report_response(response):
     # [END analyticsdata_print_run_report_response_rows]
 
 
-
-
-
 # [END analyticsdata_run_report]
-
-
-
 
 
 if __name__ == "__main__":
@@ -197,4 +174,3 @@ if __name__ == "__main__":
     # run_sample()
     # Account is UA; Property is GA4
     get_all_properties()
-
